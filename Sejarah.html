@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="https://tse1.mm.bing.net/th/id/OIP.bk-BlzBx_7swTrnhQ8W51gHaG7?pid=Api&P=0&h=220" type="image/png">
+  <title>Sejarah Indonesia — Belajar dari masa lalu</title>
+  <meta name="description" content="Ringkasan perjalanan sejarah Indonesia: dari prasejarah hingga masa kini. Jargon: 'Belajar dari masa lalu, melangkah untuk masa depan!'"/>
+  
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#ffb703;
+      --muted:#9aa5b1;
+      --glass: rgba(255,255,255,0.03);
+      --radius:12px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,#071026 0%, #0f1724 100%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.55;
+    }
+
+    /* ========================================= */
+    /* Splash Page Styling */
+    /* ========================================= */
+    #splash-page {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg,#071026 0%, #0f1724 100%);
+        z-index: 9999; /* Pastikan di atas semua konten */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        transition: opacity 0.5s ease-in-out;
+    }
+    #splash-page.hidden {
+        opacity: 0;
+        pointer-events: none; /* Nonaktifkan interaksi setelah fade out */
+    }
+    #splash-page h1 {
+        font-size: 48px;
+        margin-bottom: 10px;
+        color: var(--accent);
+    }
+    #splash-page p {
+        color: var(--muted);
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+    #splash-button {
+        background: var(--accent);
+        color: #051023;
+        padding: 12px 28px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        box-shadow: 0 8px 18px rgba(255,183,3,0.3);
+        transition: transform 0.2s;
+    }
+    #splash-button:hover {
+        transform: translateY(-2px);
+    }
+    /* ========================================= */
+
+
+    /* Layout */
+    .container{max-width:1100px;margin:0 auto;padding:28px}
+    header{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      margin-bottom:22px;position:relative; /* Penting untuk menu mobile */
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;
+    }
+    .logo{
+      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#ff8a00);
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:#051023;
+      box-shadow:0 6px 18px rgba(255,183,3,0.11);font-size:18px;
+    }
+    
+    /* Navigasi Desktop - SEKARANG DISEMBUYIKAN */
+    nav{display:none;} 
+    .nav-link{
+      color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px;font-weight:600;
+      display: block; 
+    }
+    .nav-link:hover{color:var(--accent);background:var(--glass)}
+    .cta{
+      /* CTA disembunyikan karena navigasi desktop disembunyikan */
+      display:none;
+    }
+    
+    /* Hamburger Menu Styling */
+    #hamburger {
+        display: block; /* Selalu tampilkan */
+        background: transparent;
+        border: none;
+        color: var(--accent);
+        font-size: 28px;
+        cursor: pointer;
+        padding: 4px;
+        z-index: 100;
+    }
+
+    /* Navigasi Mobile (menu yang keluar saat hamburger ditekan) */
+    .mobile-nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px; /* Di bawah header */
+        right: 28px;
+        width: 250px;
+        background: var(--card);
+        border-radius: var(--radius);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        padding: 10px 0;
+        z-index: 50;
+    }
+    .mobile-nav.open {
+        display: flex; /* Tampilkan saat class 'open' ditambahkan oleh JS */
+    }
+    .mobile-nav .nav-link {
+        padding: 12px 20px;
+        border-radius: 0;
+    }
+
+    /* Hero */
+    .hero{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius); padding:28px; display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:center;
+      box-shadow: 0 6px 24px rgba(2,6,23,0.6);
+    }
+    .hero h1{margin:0;font-size:28px}
+    .slogan{
+      margin-top:8px;color:var(--accent);font-weight:800;font-size:18px;
+    }
+    .hero p{color:var(--muted);margin-top:12px}
+
+    .hero-card {
+	  background: #071026;
+	  border-radius: 12px;
+	  padding: 16px;
+	  height: 100%;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  text-align: center;
+	}
+	
+    .hero-card h3{margin:0 0 8px 0;color:#ffb703}
+    .hero-card p{margin:0;color:#fff}
+
+    /* Sections */
+    section{margin-top:28px}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .card{
+      background:var(--card);padding:16px;border-radius:12px;box-shadow:0 4px 18px rgba(2,6,23,0.6);
+    }
+    .muted{color:var(--muted);font-size:14px}
+
+    /* Timeline */
+    .timeline{display:flex;flex-direction:column;gap:12px}
+    .event{display:flex;gap:14px;align-items:flex-start}
+    .event .year{min-width:140px;font-weight:700;color:var(--accent)}
+    .event .detail{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:12px;border-radius:10px; width: 100%;}
+    
+    /* === Penyesuaian Video Responsif === */
+    .video-responsive {
+        position: relative;
+        padding-bottom: 56.25%; /* Rasio aspek 16:9 (9 / 16 * 100) */
+        height: 0;
+        overflow: hidden;
+        margin-top: 10px;
+        border-radius: 8px;
+    }
+    .video-responsive iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none; /* Menghilangkan border iframe yang tidak perlu */
+    }
+    /* ================================== */
+
+    /* Heroes/tokoh */
+    .people{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .person{padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);text-align:center}
+    .person h4{margin:8px 0 4px 0}
+    .person p{margin:0;color:var(--muted);font-size:13px}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .img-placeholder{height:120px;border-radius:8px;background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700}
+
+    /* Footer */
+    footer{margin-top:36px;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);display:flex;justify-content:space-between;align-items:center;color:var(--muted)}
+    .small{font-size:13px;color:var(--muted)}
+
+    /* Responsive Overrides */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr; padding:18px}
+      .grid{grid-template-columns:1fr}
+      .people{grid-template-columns:repeat(2,1fr)}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+      
+      /* Timeline kembali ke layout sempit di mobile */
+      .event .year{min-width:110px;}
+      .event{flex-direction: column; gap: 4px; padding-top: 12px; border-top: 1px solid var(--glass);} /* Stacked layout for small screens */
+      .event .year{min-width: unset; margin-bottom: 4px;}
+      .event .detail{padding: 0;}
+    }
+
+    @media (max-width:480px){
+      .people{grid-template-columns:1fr}
+      .gallery{grid-template-columns:1fr}
+      .logo{width:48px;height:48px;font-size:16px}
+      /* Sesuaikan posisi menu mobile agar tidak terlalu jauh */
+      .mobile-nav {right: 18px;}
+      .container{padding: 18px;}
+    }
+
+    /* small helper */
+    .pill{display:inline-block;background:var(--glass);padding:6px 10px;border-radius:999px;color:var(--muted);font-weight:700;font-size:13px}
+    a{color:inherit}
+  </style>
+  
+</head>
+<body>
+  
+  <div id="splash-page">
+      <div style="width:100px;height:100px;margin-bottom:20px;">
+          <img src="https://tse1.mm.bing.net/th/id/OIP.bk-BlzBx_7swTrnhQ8W51gHaG7?pid=Api&P=0&h=220" 
+             alt="Logo Sekolah" 
+             style="width:100%;height:100%;object-fit:contain;">
+      </div>
+      <h1>Jelajahi Sejarah Indonesia</h1>
+      <p>Pelajari masa lalu, pahami masa kini, bentuk masa depan.</p>
+      <button id="splash-button">Mulai Jelajahi</button>
+  </div>
+
+
+  <div class="container">
+    <header>
+      <a class="brand" href="#">
+        <div class="" style="width:60px;height:60px;">
+		  <img src="https://tse1.mm.bing.net/th/id/OIP.bk-BlzBx_7swTrnhQ8W51gHaG7?pid=Api&P=0&h=220" 
+			   alt="Logo Sekolah" 
+			   style="width:100%;height:100%;object-fit:contain;">
+		</div>
+        <div>
+          <div style="font-weight:800">Sejarah Indonesia</div>
+          <div class="muted" style="margin-top:2px;font-size:13px">Belajar & Menginspirasi</div>
+        </div>
+      </a>
+
+      <button id="hamburger" aria-expanded="false" aria-controls="mobile-menu">☰</button>
+      
+      <nav id="mobile-menu" class="mobile-nav" aria-label="Mobile navigation">
+        <a class="nav-link" href="#timeline">Timeline</a>
+        <a class="nav-link" href="#tokoh">Tokoh</a>
+        <a class="nav-link" href="#galeri">Galeri</a>
+        <a class="nav-link" href="#sumber">Sumber</a>
+        <a class="nav-link" href="https://www.instagram.com/joyz_.store?igsh=MTN0Y2dqbWVrYWJuOA==" target="_blank">Instagram</a>
+        <a class="nav-link" href="#timeline" style="background:var(--accent);color:#051023;margin-top:5px;font-weight:700;">Mulai Belajar</a>
+      </nav>
+      
+    </header>
+
+    <main>
+      <section class="hero" id="home" aria-labelledby="hero-title">
+        <div>
+          <h1 id="hero-title">Sejarah Indonesia — Ringkasan penting & tokoh</h1>
+          <div class="slogan">“Belajar dari masa lalu, melangkah untuk masa depan!”</div>
+          <p class="muted">Website sederhana ini menyajikan garis besar sejarah Nusantara: periode, peristiwa penting, tokoh berpengaruh, dan sumber untuk pendalaman.</p>
+
+          <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+            <span class="pill">Prasejarah</span>
+            <span class="pill">Kerajaan Klasik</span>
+            <span class="pill">Penjajahan</span>
+            <span class="pill">Kemerdekaan</span>
+            <span class="pill">Modern</span>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-labelledby="hero-card-title">
+          <h3 id="hero-card-title">Kenapa belajar sejarah?</h3>
+          <p style="font-size:14px;margin-top:8px">Sejarah memberi konteks: asal-usul budaya, konflik dan solusi, serta pelajaran agar keputusan hari ini tidak mengulangi kesalahan masa lalu.</p>
+        </aside>
+      </section>
+
+      <section id="timeline" class="card" aria-labelledby="timeline-title" style="margin-top:20px">
+        <h2 id="timeline-title">Garis Besar Sejarah Indonesia</h2>
+        <p class="muted" style="margin-top:6px">Ringkasan periode penting.</p>
+
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="pill" data-filter="all" aria-pressed="true">Semua</button>
+          <button class="pill" data-filter="prasejarah">Prasejarah</button>
+          <button class="pill" data-filter="kerajaan">Kerajaan</button>
+          <button class="pill" data-filter="penjajahan">Penjajahan</button>
+          <button class="pill" data-filter="kemerdekaan">Kemerdekaan</button>
+          <button class="pill" data-filter="modern">Modern</button>
+        </div>
+
+        <div class="timeline" style="margin-top:14px">
+          <div class="event" data-cat="prasejarah">
+            <div class="year">~ 1.500.000 SM</div>
+            <div class="detail">
+              <strong>Zaman Prasejarah</strong>
+              <div class="muted">Manusia purba (Java Man, Homo erectus) dan bukti budaya awal: alat batu, lukisan gua, permukiman awal.</div>
+              <div class="video-responsive">
+                <iframe src="https://www.youtube.com/embed/pRlA8Z7-iIA" title="Video Sejarah Zaman Prasejarah di Indonesia" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="event" data-cat="kerajaan">
+            <div class="year">2 — 14 M</div>
+            <div class="detail">
+              <strong>Kerajaan-kerajaan Awal</strong>
+              <div class="muted">Kerajaan Sriwijaya (sumatra) dan Tarumanagara (Jawa Barat) menunjukkan perdagangan maritim dan kebudayaan Hindu-Buddha.</div>
+              <div class="video-responsive">
+                <iframe src="https://www.youtube.com/embed/S7GVz-YGWrY" title="Video Sejarah Kerajaan Hindu, Buddha, dan Islam" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="event" data-cat="kerajaan">
+            <div class="year">13 — 16 M</div>
+            <div class="detail">
+              <strong>Majapahit</strong>
+              <div class="muted">Kerajaan besar di Jawa yang mencapai pengaruh ke banyak wilayah Nusantara; periode penting bagi penyatuan budaya.</div>
+              <div class="video-responsive">
+                <iframe src="https://www.youtube.com/embed/2Z9hqVqPY_s" title="Video Sejarah Bangkit Dan Jatuhnya Kerajaan Majapahit" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="event" data-cat="penjajahan">
+            <div class="year">1600 — 1900</div>
+            <div class="detail">
+              <strong>Penjajahan Eropa</strong>
+              <div class="muted">VOC, kemudian pemerintahan Hindia Belanda, berdampak besar pada ekonomi, sosial, dan politik Nusantara.</div>
+              <div class="video-responsive">
+                <iframe src="https://www.youtube.com/embed/i-NnvRMTmR4" title="Video KEDATANGAN BANGSA BARAT KE INDONESIA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="event" data-cat="kemerdekaan">
+            <div class="year">1908 — 1945</div>
+            <div class="detail">
+              <strong>Masa Kebangkitan Nasional & Pergerakan</strong>
+              <div class="muted">Organisasi dan gerakan politik (Budi Utomo, Sarekat Islam, PNI) serta perjuangan kemerdekaan yang berpuncak pada Proklamasi 17 Agustus 1945.</div>
+              <div class="video-responsive">
+                <iframe src="https://www.youtube.com/embed/AH52aEcpEi0" title="Video Masa Kebangkitan Nasional dan Pergerakan" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="event" data-cat="kemerdekaan">
+            <div class="year">1945 — 1950</div>
+            <div class="detail">
+              <strong>Revolusi Nasional</strong>
+              <div class="muted">Perjuangan diplomasi dan bersenjata melawan upaya kembalinya penjajah; pengakuan kedaulatan 1949 (Belanda).</div>
+              <div class="video-responsive">
+                <iframe src="https://www.youtube.com/embed/60teFg-7590" title="Video Revolusi Nasional Indonesia" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="event" data-cat="modern">
+            <div class="year">1950 — 2025</div>
+            <div class="detail">
+              <strong>Masa Republik</strong>
+              <div class="muted">Perkembangan politik, ekonomi, demokrasi, dan tantangan modern seperti pembangunan, reformasi, dan globalisasi.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tokoh" style="margin-top:18px">
+        <div class="grid">
+          <div class="card">
+            <h3>Tokoh Berpengaruh</h3>
+            <p class="muted">Beberapa tokoh yang membentuk perjalanan bangsa.</p>
+
+            <div class="people" style="margin-top:12px">
+            <div class="person">
+				  <div style="height:78px;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+					<img src="https://tse4.mm.bing.net/th/id/OIP.44Q2tldkD3vBVBJy11TncAHaKM?pid=Api&P=0&h=220" 
+						 alt="Sukarno" 
+						 style="height:78px;width:78px;object-fit:cover;border-radius:8px;">
+				  </div>
+				  <h4>Soekarno</h4>
+				  <p class="muted">Proklamator & Presiden pertama; pemersatu bangsa pada masa awal kemerdekaan.</p>
+			</div>
+
+            <div class="person">
+				  <div style="height:78px;width:78px;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+					<img src="https://tse1.mm.bing.net/th/id/OIP.0KqU0B2e7XhVvjOhXpudDAHaEN?pid=Api&P=0&h=220" 
+						 alt="Mohammad Hatta" 
+						 style="height:78px;width:78px;object-fit:cover;border-radius:8px;">
+				  </div>
+				  <h4>M. Hatta</h4>
+				  <p class="muted">Wakil Presiden & tokoh diplomasi; berperan dalam perumusan dasar negara.</p>
+			</div>
+
+			<div class="person">
+				  <div style="height:78px;width:78px;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+					<img src="https://tse1.mm.bing.net/th/id/OIP.3hMqkTmHqhmEZrkmzd2t2AHaEY?pid=Api&P=0&h=220" 
+						 alt="RA Kartini" 
+						 style="height:78px;width:78px;object-fit:cover;border-radius:8px;">
+				  </div>
+				  <h4>RA Kartini</h4>
+				  <p class="muted">Pelopor emansipasi perempuan di Indonesia.</p>
+			</div>
+
+			  
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Pelajaran Utama</h3>
+            <ul style="margin-top:10px;color:var(--muted);padding-left:18px">
+              <li>Pengertian identitas nasional & keberagaman budaya.</li>
+              <li>Pentingnya diplomasi, pendidikan, dan ekonomi untuk kedaulatan.</li>
+              <li>Belajar dari konflik: penyelesaian damai & hukum.</li>
+            </ul>
+            <p class="muted" style="margin-top:12px">Slogan</p>
+            <div style="margin-top:6px;font-weight:800;color:var(--accent)">“Belajar dari masa lalu, melangkah untuk masa depan!”</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="galeri" style="margin-top:18px">
+        <div class="card">
+          <h3>Galeri & Media</h3>
+          <p class="muted">Sumber: arsip nasional, koleksi publik</p>
+
+          <div class="gallery" style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;">
+			<div class="img-placeholder">
+			  <img src="https://tse4.mm.bing.net/th/id/OIP.P5ahPHjZoBuRauQun_cI_wHaE8?pid=Api&P=0&h=220" 
+				   alt="Pembacaan Proklamasi 1945" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+			</div>
+			<div class="img-placeholder">
+			  <img src="https://tse3.mm.bing.net/th/id/OIP.evftyBIKtEVB0RX2OgBf_gHaEK?pid=Api&P=0&h=220" 
+				   alt="Revolusi Nasional" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+			</div>
+			<div class="img-placeholder">
+			  <img src="https://tse3.mm.bing.net/th/id/OIP.K5s99fQ97nZ2XqxNIOdZeAHaDt?pid=Api&P=0&h=220" 
+				   alt="Masa Replublik" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+			</div>
+			<div class="img-placeholder">
+			  <img src="https://tse3.mm.bing.net/th/id/OIP.WCvj3RurDt5U7hfH1RI43AHaEK?pid=Api&P=0&h=220" 
+				   alt="Masa Kebangkitan" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+			</div>
+			<div class="img-placeholder">
+			  <img src="https://tse4.mm.bing.net/th/id/OIP.LwoVOnurNK5jUujwxX7eQAHaE6?pid=Api&P=0&h=220" 
+				   alt="Pengibaran Bendera Merah Putih 1945" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+			</div>
+			<div class="img-placeholder">
+			  <img src="https://tse2.mm.bing.net/th/id/OIP.IPSpURYWyVw9ZF_rl0Cz_QHaFj?pid=Api&P=0&h=220" 
+				   alt="Museum Sumpah Pemuda" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+			</div>
+        </div>
+		
+      </section>
+
+      <section id="sumber" style="margin-top:18px">
+        <div class="card">
+          <h3>Sumber & Latihan Soal</h3>
+          <p class="muted">Berikut sumber yang baik untuk pendalaman.</p>
+          <ol style="margin-top:10px;color:var(--muted)">
+            <li>Sejarah Nasional Indonesia (buku-buku sejarah terbitan universitas dan penerbit nasional)</li>
+            <li>Arsip Nasional Republik Indonesia</li>
+            <li>Jurnal sejarah & publikasi akademik tentang Nusantara</li>
+            <li>Museum nasional & situs cagar budaya</li>
+          </ol>
+          <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSf_lxZtYYAzuxTEKzQofqM0amWPyHTOFio4p2OBEuWVeM_YCA/viewform?usp=header"
+            target="_blank">
+            Latihan Soal
+          </a>
+          
+        </div>
+      </section>
+
+    </main>
+	
+	<footer style="background-color:#0b1220;color:#ffffff;padding:24px 16px;text-align:center;font-family:Inter, sans-serif;">
+	<div style="max-width:1200px;margin:0 auto;">
+    <p>&copy; 2025 Kelompok 6 Sejarah Indonesia<p>
+	
+  </div>
+</footer>
+  </div>
+
+  <script>
+    // Logika Halaman Awal (Splash Page)
+    document.addEventListener('DOMContentLoaded', () => {
+        const splashPage = document.getElementById('splash-page');
+        const splashButton = document.getElementById('splash-button');
+
+        // Pastikan splash page ditampilkan saat DOMContentLoaded
+        if (splashPage) {
+            splashPage.classList.remove('hidden');
+        }
+
+        if (splashButton && splashPage) {
+            splashButton.addEventListener('click', () => {
+                // Sembunyikan splash page dengan efek fade out
+                splashPage.classList.add('hidden');
+            });
+        }
+    });
+
+
+    // Logika Menu Garis Tiga
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+        const isExpanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+        
+        mobileMenu.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', !isExpanded);
+        
+        // Mengganti ikon
+        hamburger.textContent = isExpanded ? '☰' : '✕'; 
+    });
+    
+    // Tutup menu saat link di menu mobile diklik (untuk navigasi ke section)
+    document.querySelectorAll('#mobile-menu .nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.textContent = '☰';
+        });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        const targetId = this.getAttribute('href').slice(1);
+        if(!targetId) return;
+        const el = document.getElementById(targetId);
+        if(el){
+          e.preventDefault();
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      })
+    });
+
+    // Simple timeline filter
+    const buttons = document.querySelectorAll('button[data-filter]');
+    const events = document.querySelectorAll('.timeline .event');
+
+    buttons.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const cat = btn.getAttribute('data-filter');
+        buttons.forEach(b=>b.setAttribute('aria-pressed','false'));
+        btn.setAttribute('aria-pressed','true');
+        events.forEach(ev=>{
+          if(cat === 'all' || ev.dataset.cat === cat){
+            ev.style.display='flex';
+          } else {
+            ev.style.display='none';
+          }
+        });
+      });
+    });
+
+    // set initial to 'all'
+    document.querySelector('button[data-filter="all"]').click();
+  </script>
+</body>
+</html>
